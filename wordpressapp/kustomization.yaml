@@ -1,0 +1,11 @@
+secretGenerator:
+  - name: mysql-pass
+    literals:
+    - password=password
+configMapGenerator:
+  - name: wp-db-host
+    literals:
+    - hostname=backend
+resources:
+  - mysql-deployment.yaml
+  - wordpress-deployment.yaml

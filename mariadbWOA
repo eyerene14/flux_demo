@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-mariadb
+  namespace: mariadb
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  template:
+    metadata:
+      labels:
+        app: my-mariadb
+    spec:
+      containers:
+        - name: app
+          image: mariadb
+          envFrom:
+            - configMapRef:
+                name: secret-mariadb-configmap
+            - secretRef:
+                name: secret-mariadb-pwd

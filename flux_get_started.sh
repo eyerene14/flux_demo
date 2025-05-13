@@ -6,6 +6,7 @@
 
 export GITHUB_TOKEN=$(cat ~/.pat/eyerene14_github_pat)
 export GITHUB_USER=eyerene14
+export GITHUB_REPO=flux-source
 
 # Install Flux onto your cluster
 # flux bootstrap command: 
@@ -18,16 +19,16 @@ echo "Bootstrapping flux to the cluster..."
 
 flux bootstrap github \
   --owner=$GITHUB_USER \
-  --repository=flux-gs \
+  --repository=$GITHUB_REPO \
   --branch=main \
   --path=./clusters/my-cluster \
   --personal
 
-# Clone the flux-gs repository to your local machine:
-echo "Cloning the flux-gs repository and changing directory..."
+# Clone the flux-source repository to your local machine:
+echo "Cloning the flux-source repository and changing directory..."
 cd ..
-git clone https://github.com/$GITHUB_USER/flux-gs
-cd flux-gs
+git clone https://github.com/$GITHUB_USER/flux-source
+cd flux-source
 
 # Create a GitRepository manifest pointing to podinfo repository’s master branch:
 echo "Creating GitRepository manifest for podinfo..."
@@ -38,7 +39,7 @@ flux create source git podinfo \
   --interval=1m \
   --export > ./clusters/my-cluster/podinfo-source.yaml
 
-# Commit and push the podinfo-source.yaml file to the flux-gs repository:
+# Commit and push the podinfo-source.yaml file to the flux-source repository:
 git add -A && git commit -m "Add podinfo GitRepository"
 git push
 
@@ -58,7 +59,7 @@ flux create kustomization mypodinfo \
   --health-check-timeout=3m \
   --export > ./clusters/my-cluster/podinfo-kustomization.yaml
 
-# Commit and push the podinfo-kustomization.yaml file to the flux-gs repository:
+# Commit and push the podinfo-kustomization.yaml file to the flux-source repository:
 git add -A && git commit -m "Add podinfo Kustomization"
 git push
 

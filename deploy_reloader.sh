@@ -2,7 +2,7 @@
 
 export GITHUB_TOKEN=$(cat ~/.pat/eyerene14_github_pat)
 export GITHUB_USER=eyerene14
-export GITHUB_REPO=flux-gs
+export GITHUB_REPO=flux-source
 
 cd ../$GITHUB_REPO
 # Create a GitRepository manifest pointing to podinfo repository’s master branch:

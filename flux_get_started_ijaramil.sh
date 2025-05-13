@@ -17,21 +17,22 @@ export GITHUB_REPO=flux-gs
 
 echo "Bootstrapping flux to the cluster..."
 
-#flux bootstrap github \
-#  --owner=$GITHUB_USER \
-#  --repository=$GITHUB_REPO \
-#  --branch=main \
-#  --path=./clusters/my-cluster \
-#  --personal
-
-flux bootstrap github --owner=$GITHUB_USER --repository=$GITHUB_REPO --private=false --hostname=scm.starbucks.com --token-auth --path=clusters/my-cluster --personal
+flux bootstrap github \
+  --owner=$GITHUB_USER \
+  --repository=$GITHUB_REPO \
+  --branch=main \
+  --private=false \
+  --hostname=scm.starbucks.com \
+  --token-auth \
+  --path=./clusters/my-cluster \
+  --personal
 
 
 # Clone the flux-gs repository to your local machine:
-echo "Cloning the flux-gs repository and changing directory..."
+echo "Cloning the $GITHUB_REPO repository and changing directory..."
 cd ..
-git clone https://scm.starbucks.com/$GITHUB_USER/flux-gs
-cd flux-gs
+git clone https://scm.starbucks.com/$GITHUB_USER/$GITHUB_REPO
+cd $GITHUB_REPO
 
 # Create a GitRepository manifest pointing to podinfo repository’s master branch:
 echo "Creating GitRepository manifest for podinfo..."

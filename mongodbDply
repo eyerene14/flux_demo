@@ -1,0 +1,20 @@
+# Default values for cinema.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+### Mongodb values ###
+mongodb:
+  # define if use mongodb dependency
+  enabled: true
+
+  image:
+    repository: mongo
+    tag: 4.2.23
+
+  readinessProbe:
+    enabled: false
+  livenessProbe:
+    enabled: false
+
+  persistence:
+    mountPath: /data/db

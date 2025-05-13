@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodbwoannotations
+  namespace: mongodb
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  template:
+    metadata:
+      labels:
+        app: mongodbwoannotations
+    spec:
+      containers:
+        - name: mongodbwoannotations
+          image: mongo:4.2.23
+          readinessProbe:
+            enabled: false
+          livenessProbe:
+            enabled: false
+          persistence:
+            mountPath: /data/db
+          envFrom:
+            - configMapRef:
+                name: mongodb-config-woa
+            - secretRef:
+                name: mongodb-secret-woa

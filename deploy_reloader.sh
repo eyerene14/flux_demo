@@ -5,7 +5,7 @@ export GITHUB_USER=eyerene14
 export GITHUB_REPO=flux-source
 
 
-cd ../flux-source
+cd ~/notes/$GITHUB_REPO
 
 # Create a GitRepository manifest pointing to podinfo repository’s master branch:
 echo "Creating GitRepository manifest for isk-reloader..."
@@ -20,8 +20,9 @@ flux create source git reloader \
 git add -A && git commit -m "Created a flux source that points to isk-reloader repo"
 git push
 
-kubectl get all
 kubectl get namespaces
+kubectl -n isk-reloader get all
+kubectl -n default get deployments,services
 
 # Deploy application: 
 # flux create command creates a Kustomization file that applies the isk-reloader deployment
@@ -43,7 +44,9 @@ flux create kustomization isk-reloader \
 git add -A && git commit -m "Add isk-reloader Kustomization"
 git push
 
-flux get kustomizations --watch &
+#flux get kustomizations --watch &
 
 echo "Waiting for isk-reloader app to be deployed..."
+kubectl get namespaces
+kubectl -n isk-reloader get all
 kubectl -n default get deployments,services

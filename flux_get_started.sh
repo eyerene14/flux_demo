@@ -27,7 +27,7 @@ flux bootstrap github \
 # Clone the flux-source repository to your local machine:
 echo "Cloning the $GITHUB_REPO repository and changing directory..."
 cd ..
-git clone https://github.com/$GITHUB_USER/flux-source
+git clone https://github.com/$GITHUB_USER/$GITHUB_REPO
 cd $GITHUB_REPO
 
 # Create a GitRepository manifest pointing to podinfo repository’s master branch:

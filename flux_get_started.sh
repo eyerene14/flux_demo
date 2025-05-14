@@ -33,7 +33,7 @@ cd $GITHUB_REPO
 # Create a GitRepository manifest pointing to podinfo repository’s master branch:
 echo "Creating GitRepository manifest for podinfo..."
 # flux create command creates a GitRepository file that points to the podinfo repo
-flux create source git mypodinfo \
+flux create source git podinfo \
   --url=https://github.com/stefanprodan/podinfo \
   --branch=master \
   --interval=1m \

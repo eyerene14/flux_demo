@@ -4,11 +4,13 @@ export GITHUB_TOKEN=$(cat ~/.pat/eyerene14_github_pat)
 export GITHUB_USER=eyerene14
 export GITHUB_REPO=flux-source
 
-cd ../$GITHUB_REPO
+
+cd ../flux-source
+
 # Create a GitRepository manifest pointing to podinfo repository’s master branch:
 echo "Creating GitRepository manifest for isk-reloader..."
 # flux create command creates a GitRepository file that points to the flux_demo repo
-flux create source git isk-reloader \
+flux create source git reloader \
   --url=https://github.com/eyerene14/isk-reloader/ \
   --branch=main \
   --interval=1m \
@@ -28,7 +30,7 @@ echo "Creating kustomization and deploying isk-reloader app..."
 
 flux create kustomization isk-reloader \
   --target-namespace=isk-reloader \
-  --source=isk-reloader \
+  --source=reloader \
   --path="./isk-reloader" \
   --prune=true \
   --wait=true \

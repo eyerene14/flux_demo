@@ -8,8 +8,6 @@ export GITHUB_TOKEN=$(cat ~/.pat/eyerene14_github_pat)
 export GITHUB_USER=eyerene14
 export GITHUB_REPO=flux-source
 
-cd ~/notes/flux_demo
-
 # Install Flux onto your cluster
 # flux bootstrap command:
 # - Creates repo <fleet-infra> in your github account
@@ -28,19 +26,17 @@ flux bootstrap github \
 
 # Clone the flux-source repository to your local machine:
 echo "Cloning the $GITHUB_REPO repository and changing directory..."
-cd ~/notes
+cd ~/notes/
 git clone https://github.com/$GITHUB_USER/$GITHUB_REPO
-cd $GITHUB_REPO
+cd ~/notes/$GITHUB_REPO
 
-# Create a GitRepository manifest pointing to podinfo repository’s master branch:
+# Create a GitRepository manifest pointing to flux-source repository’s master branch:
 echo "Creating GitRepository manifest for isk-reloader..."
 # flux create command creates a GitRepository file that points to the flux_demo repo
-flux create source git podinfo \
+flux create source git $GITHUB_REPO \
   --url=https://github.com/eyerene14/isk-reloader \
   --branch=main \
   --interval=1m \
-  --namespace flux-system \
-  --insecure-skip-tls-verify \
   --export > ./clusters/my-cluster/reloader-source.yaml
 
 # Commit and push the isk-reloader-source.yaml file to the isk-reloader repository:
@@ -62,11 +58,9 @@ flux create kustomization isk-reloader \
   --path="./isk-reloader" \
   --prune=true \
   --wait=true \
-  --interval=30m \
+  --interval=2m \
   --retry-interval=2m \
   --health-check-timeout=3m \
-  --namespace flux-system \
-  --insecure-skip-tls-verify \
   --export > ./clusters/my-cluster/reloader-kustomization.yaml
 
 # Commit and push the isk-reloader-kustomization.yaml file to the flux-gs repository:

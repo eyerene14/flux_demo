@@ -7,7 +7,7 @@
 export GITHUB_TOKEN=$(cat ~/.pat/eyerene14_github_pat)
 export GITHUB_USER=eyerene14
 export GITHUB_REPO=flux-source
-
+cd ..
 # Install Flux onto your cluster
 # flux bootstrap command: 
 # - Creates repo <fleet-infra> in your github account
@@ -26,7 +26,7 @@ flux bootstrap github \
 
 # Clone the flux-source repository to your local machine:
 echo "Cloning the $GITHUB_REPO repository and changing directory..."
-cd ..
+
 git clone https://github.com/$GITHUB_USER/$GITHUB_REPO
 cd $GITHUB_REPO
 
